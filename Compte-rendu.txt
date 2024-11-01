@@ -1,0 +1,68 @@
+Exercice 4 :
+------------
+
+1)
+Lorsque le programme s'exécute, un signal d'alarme est envoyé au processus, en
+étant associé à une foonction qui renvoie récursivement un signal d'alarme toutes
+les secondes, en affichant "poire" dans la console au passage.
+
+2)
+Si jamais l'on envoie SIGUSR1 au processus, celui-ci cesse immédiatement d'envoyer
+des signaux d'alarmes, et donc d'afficher "poire" ; toutefois, il continue de
+s'exécuter.
+
+
+Exercice 5 :
+------------
+
+1)
+Lors de l'exécution du programme, le processus principal se divise en 2 processus,
+dont 1 se divisant lui-même en 2 processus ; en conséquence, le tout crée 3
+processus distincts, à l'aide de la commande du module os "fork()".
+
+2)
+proc_1 (processus principal) :
+ pid - 17
+
+proc_2 (fils de proc_1, car l'on y accède depuis le père, avec la condition
+"num == 0") :
+ pid - 18
+
+proc_3 (fils de proc_1, car l'on y accède toujours depuis le père, avec la
+condition "num == 0"):
+ pid - 19
+
+Note : proc_2 et proc_3 sont donc frères.
+
+3)
+ligne 1 - "18" (après 0 seconde)
+ligne 2 - "17" (après 1 seconde)
+ligne 3 - "18" (après 1 seconde)
+ligne 4 - "19" (après 2 secondes)
+ligne 5 - "17" (après 3 secondes)
+
+
+Exercice 6 :
+------------
+
+1)
+Lorsque le programme s'exécute, il assigne le signal d'alarme à un traitement
+qui affiche "lion" dans la console, avant d'entrer dans une boucle infinie
+qui envoie ce même signal toutes les secondes, entraînant ainsi l'affichage de
+"lion".
+
+2)
+Si jamais l'on envoie SIGUSR1 à ce processus, le programme affichera instantanément
+"zebre", puis ignorera les signaux d'alarmes nouvellement reçus ; il n'affichera
+donc plus du tout "lion" dans la console.
+
+3)
+Si jamais l'on envoie SIGUSR2 à ce processus, le programme affichera cette fois
+instantanément "girafe", mais ne va ensuite qu'assigner de nouveau le signal
+d'alarme à la même fonction que précédement ; il ne changera par conséquent pas le
+fonctionnement du programme, par la suite.
+
+4)
+Si jamais l'on envoie SIGINT à ce processus, comme aucune fonction n'est assignée
+à ce signal, le programme va tout simplement exécuter son action par défaut,
+c'est-à-dire s'interrompre, et ainsi ne plus rien afficher du tout.
